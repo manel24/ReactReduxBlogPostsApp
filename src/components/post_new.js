@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { createPost } from "../actions/index";
 
 class PostNew extends Component {
   renderField(field) {
@@ -19,7 +21,8 @@ class PostNew extends Component {
   //{field.meta.error}//this will be the error msg returned (if any) from the validate fx (the name property wires things up)
   onSubmit(values) {
     //this === component
-    console.log(values);
+    //console.log(values);
+    this.props.createPost(values);
   }
   render() {
     const { handleSubmit } = this.props;
@@ -62,4 +65,11 @@ function validate(values) {
   // if errors is empty, the form is fine to sumbit
   // if errors haas *any* of the properties not empty, redux form assumes the fors is not valid
 }
-export default reduxForm({ validate: validate, form: "NewPostForm" })(PostNew);
+export default reduxForm({ validate: validate, form: "NewPostForm" })(
+  connect(
+    null,
+    {
+      createPost
+    }
+  )(PostNew)
+);
