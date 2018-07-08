@@ -22,7 +22,11 @@ class PostNew extends Component {
   onSubmit(values) {
     //this === component
     //console.log(values);
-    this.props.createPost(values);
+    this.props.createPost(values, () => {
+      this.props.history.push("/"); 
+      //a callback that's executed once the createPost finishes  
+      //return to the posts index page once the post is created successfully
+    });
   }
   render() {
     const { handleSubmit } = this.props;
