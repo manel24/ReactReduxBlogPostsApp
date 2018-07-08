@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
+import { Link } from "react-router-dom";
 
 class PostNew extends Component {
   renderField(field) {
+    const {
+      meta: { touched, error }
+    } = field; //we can now access field.meta.error and field.meta.touched
+    const className = `form-group ${touched && error ? "has-danger" : ""}`;
     return (
-      <div className="form-group">
+      <div className={className}>
         <label>{field.label}</label>
         <input className="form-control" type="text" {...field.input} />
-        {field.meta.touched ? field.meta.error : ""}
+        <div className="text-help">{touched ? error : ""}</div>
       </div>
     );
   }
@@ -34,6 +39,9 @@ class PostNew extends Component {
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
+        <Link className="btn btn-danger" to="/">
+          Cancel{" "}
+        </Link>
       </form>
     );
   }
