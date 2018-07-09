@@ -1,10 +1,7 @@
 import _ from "lodash";
-import {
-  FETCH_POSTS,
-  FETCH_POST
-} from "../actions";
+import { FETCH_POSTS, FETCH_POST, DELETE_POST } from "../actions";
 
-export default function (state = {}, action) {
+export default function(state = {}, action) {
   switch (action.type) {
     case FETCH_POSTS:
       return _.mapKeys(action.payload.data, "id");
@@ -16,9 +13,12 @@ export default function (state = {}, action) {
 
       /* the 4 previous lines are ES6 equal to the following
        line but less code + nice syntax */
-      return { ...state,
+      return {
+        ...state,
         [action.payload.data.id]: action.payload.data
-      } //return the previous state, and add to it the nex fetched post
+      }; //return the previous state, and add to it the nex fetched post
+    case DELETE_POST:
+      return _.omit(state, action.payload);
 
     default:
       return state;
