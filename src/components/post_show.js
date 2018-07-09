@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchPost } from "../actions/index";
 
 class ShowPost extends Component {
@@ -17,9 +18,13 @@ class ShowPost extends Component {
       console.log("fetched post:", post);
       return (
         <div>
+          <Link to="/">Back to main page</Link>
           <h3>Title: {post.title}</h3>
           <h6> categories: {post.categories}</h6>
           <p> content: {post.content}</p>
+          <Link className="btn btn-danger" to="/posts/delete/{post.id}">
+            delete{" "}
+          </Link>
         </div>
       );
     }
